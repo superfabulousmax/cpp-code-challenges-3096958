@@ -9,17 +9,44 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 
 // is_valid_ip()
 // Summary: This function validates an IP address.
 // Arguments:
 //           ip: The string to analyze with a potential ip address.
 // Returns: A boolean value. True for valid ip addresses, false otherwise.
-bool is_valid_ip(std::string ip){
+bool is_valid_ip(std::string ip)
+{
 
-    // Write your code here
+    std::istringstream iss(ip);
+    std::string token;
+    int count = 0;
+    while (std::getline(iss, token, '.'))
+    {
+        for (int i = 0; i < token.length(); ++i)
+        {
+            if (std::isdigit(token[i]) == false)
+            {
+                return false;
+            }
+        }
 
-    return false;
+        int num = std::stoi(token);
+
+        if (num < 0 || num > 255)
+        {
+            return false;
+        }
+
+        count++;
+        if (count > 4)
+        {
+            return false;
+        }
+    }
+
+    return count == 4;
 }
 
 // Main function

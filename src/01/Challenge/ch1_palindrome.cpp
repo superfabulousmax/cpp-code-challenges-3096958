@@ -15,8 +15,20 @@
 bool is_palindrome(std::string str){
 
     // Write your code here
+    int i = 0;
+    int j = str.length() - 1;
+    std::transform(str.begin(), str.end(), str.begin(), tolower);
+    while (i < j)
+    {
+        if (str[i] != str[j])
+        {
+            return false;
+        }
+        i++;
+        j--;
+    }
 
-    return false;
+    return true;
 }
 
 // Main function

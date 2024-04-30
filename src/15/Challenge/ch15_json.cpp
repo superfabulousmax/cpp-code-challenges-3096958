@@ -12,6 +12,7 @@
 #include <string>
 #include <stack>
 
+
 // is_valid_JSON()
 // Summary: This function returns true if the file in the argument is a valid JSON file based on its balance of braces, brackets, and quotes.
 // Arguments:
@@ -22,11 +23,39 @@ int is_valid_JSON(std::string filename){
     bool quotes = false; 
 
     std::fstream file (filename, std::ios::in);
-    if(file.is_open()){
- 
-        // Write your code here
-
+     if(file.is_open()){
+        std::stack<char> stack;
+        while(std::getline(file, line))
+            for(auto &ch : line)
+                if(!quotes)  // Content outside quotes.
+                    switch(ch){
+                        case '{':
+                        case '[':
+                            stack.push(ch);
+                            break;
+                        case '}':
+                        case ']':
+                            if(stack.empty()){
+                                file.close();
+                                return 0;
+                            }
+                            if(stack.top() == (ch - 2))
+                                stack.pop();
+                            else
+                                return 0;
+                            break;
+                        case '"':
+                            quotes = true;
+                            break;
+                    }        
+                else   // Ignore everything inside quotes.
+                    if(ch=='"')
+                        quotes = false;
         file.close();
+        if(stack.empty() && !quotes)
+            return 1;
+        else 
+            return 0;
     }
     else
         return -1;

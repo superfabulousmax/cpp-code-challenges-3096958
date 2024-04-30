@@ -16,9 +16,48 @@
 // Returns: A boolean value: True on success, false otherwise.
 bool sort_array(int *arr, int n){
 
+    if (arr == nullptr)
+    {
+        return false;
+    }
     // Write your code here
+    int max = 0;
+    for (int i = 0; i < n; ++i)
+    {
+        if (arr[i] > max)
+        {
+            max = arr[i];
+        }
+    }
 
-    return false;
+    int * countArr = new int[max + 1];
+
+    for (int i  = 0; i < n; ++i)
+    {
+        countArr[arr[i]]++;
+    }
+
+    for (int i = 1; i <= max; ++i)
+    {
+        countArr[i] += countArr[i-1];
+    }
+
+    int * result = new int[n];
+
+    for (int i = n - 1; i >= 0; i--)
+    {
+        result[countArr[arr[i]] - 1] = arr[i];
+        countArr[arr[i]]--;
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        arr[i] = result[i];
+    }
+
+    delete result;
+
+    return true;
 }
 
 // Main function

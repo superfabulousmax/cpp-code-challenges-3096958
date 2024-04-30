@@ -16,6 +16,24 @@ int main(){
     std::cin >> n;
 
     // Write your code here
+
+    for (int i = 1; i <= n; ++i)
+    {
+        std::string result = "";
+
+        if (i % 3 == 0)
+        {
+            result+="Fizz";
+        }
+        if (i % 5 == 0)
+        {
+            result+="Buzz";
+        }
+        if (result != "")
+            std::cout << std::to_string(i)+ " " +result << std::endl;
+        else
+            std::cout << std::to_string(i) << std::endl;
+    }
     
     std::cout << std::endl << std::flush;
     return 0;

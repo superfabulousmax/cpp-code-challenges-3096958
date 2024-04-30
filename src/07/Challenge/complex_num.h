@@ -3,10 +3,11 @@
 
 #include <iostream>
 
-class complex_num{
-    
-    // Write your code here
-
+class complex_num
+{    
+    private:
+        double a;
+        double b;
     public:
          complex_num(double = 0.0, double = 0.0);
          complex_num operator +(complex_num);
